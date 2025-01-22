@@ -1,0 +1,29 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "PHP Conference",
+      "when": "2025-01-15",
+      "description": "PHP Conference Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod, exercitationem."
+    },
+    {
+      "id": 2,
+      "title": "JS Conference",
+      "when": "2025-03-25",
+      "description": "JS Conference Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod, exercitationem."
+    },
+    {
+      "id": 3,
+      "title": "GO Lang Conference",
+      "when": "2025-04-23",
+      "description": "GO Lang Conference Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod, exercitationem."
+    },
+    {
+      "id": 4,
+      "title": "Java Conference",
+      "when": "2025-03-26",
+      "description": "Java Conference Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod, exercitationem."
+    }
+  ],
+  "bookings": []
+}
