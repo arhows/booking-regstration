@@ -3,8 +3,16 @@ import { onMounted } from "vue";
 import useEvents from "../../../composables/useEvents";
 import Event from "./Event.vue";
 import LoadingEvents from "./LoadingEvents.vue";
+import ErrorCard from "../../UI/ErrorCard.vue";
 
-const { events, eventLoading, fetchEvents, postBooking } = useEvents();
+const {
+  events,
+  eventLoading,
+  isErrorEvents,
+  errorEvent,
+  fetchEvents,
+  postBooking,
+} = useEvents();
 
 onMounted(() => {
   fetchEvents();
@@ -15,7 +23,14 @@ onMounted(() => {
   <section>
     <h2>All Events</h2>
     <div class="cards">
-      <template v-if="!eventLoading">
+      <template v-if="isErrorEvents">
+        <ErrorCard :retry="fetchEvents">
+          <div class="error-message">
+            {{ errorEvent }}
+          </div>
+        </ErrorCard>
+      </template>
+      <template v-else-if="!eventLoading">
         <Event
           v-for="event in events"
           :key="event.id"

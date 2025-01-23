@@ -1,25 +1,22 @@
 <script setup>
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed } from "vue";
 import Button from "../../UI/Button.vue";
 import SlotsCard from "../../UI/SlotsCard.vue";
+import { LoaderCircle, Check } from "lucide-vue-next";
 
 const props = defineProps({
   book: {
     type: Object,
   },
+  status: String,
 });
 
 defineEmits(["cancel-booking"]);
 
-const classStatus = ref("pending");
-const disable = ref(false);
-
-watchEffect(() => {
-  let val = props.book?.status === "finished" ? "finished" : "pending";
-  classStatus.value = val;
-
-  disable.value = val === "pending" ? true : false;
-});
+const pending = computed(() => props.status === "pending");
+const disabled = computed(() => pending.value);
+const listCss = computed(() => (pending.value ? "pending" : "finished"));
+const Icon = computed(() => (pending.value ? LoaderCircle : Check));
 </script>
 
 <template>
@@ -28,10 +25,13 @@ watchEffect(() => {
       <div class="card">
         <div class="body">
           <p>{{ book.eventTitle }}</p>
-          <p :class="`status ${classStatus}`">{{ book.status }}</p>
+          <p :class="`status ${listCss}`">
+            <component :is="Icon" :class="{ spinner: pending }" />
+            {{ book.status }}
+          </p>
         </div>
         <Button
-          :disable="disable"
+          :disabled="disabled"
           variant="danger"
           @click="$emit('cancel-booking')"
           >Cancel</Button
@@ -64,6 +64,10 @@ watchEffect(() => {
   font-size: 0.8rem;
   border-radius: 10px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
 }
 
 .body .status.pending {

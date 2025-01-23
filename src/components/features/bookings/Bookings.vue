@@ -20,6 +20,7 @@ onMounted(() => {
           v-for="book in bookings"
           :key="book.id"
           :book="book"
+          :status="book.status"
           @cancel-booking="cancelBooking(book.id)"
         />
       </template>

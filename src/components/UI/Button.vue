@@ -10,7 +10,7 @@ const props = defineProps({
     type: String,
     default: "outline",
   },
-  disable: {
+  disabled: {
     type: Boolean,
     default: false,
   },
@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <button :class="[variants[variant] ?? variants.outline]" :disabled="disable">
+  <button :class="[variants[variant] ?? variants.outline]" :disabled="disabled">
     <slot></slot>
   </button>
 </template>

@@ -4,17 +4,23 @@ const BASE_URL = "http://localhost:3001";
 
 const events = ref([]);
 const eventLoading = ref(false);
-const isErrorEvents = ref("");
+const isErrorEvents = ref(false);
+const errorEvent = ref('')
 
 const bookings = ref([]);
 const bookingLoading = ref(false);
 const isErrorBooking = ref("");
 
+console.log("events:", events.value);
+console.log("isErrorEvents:", isErrorEvents.value);
+console.log("eventLoading:", eventLoading.value);
+
 export default function useEvents() {
   const fetchEvents = async () => {
+    isErrorEvents.value = false;
+    errorEvent.value = '';
+    eventLoading.value = true;
     try {
-      isErrorEvents.value = "";
-      eventLoading.value = true;
       const res = await fetch(`${BASE_URL}/events`);
 
       if (!res.ok) {
@@ -22,7 +28,8 @@ export default function useEvents() {
       }
       events.value = await res.json();
     } catch (error) {
-      isErrorEvents.value = error;
+      isErrorEvents.value = true;
+      errorEvent.value = error.message || "Unknown error occurred";
     } finally {
       eventLoading.value = false;
     }
@@ -114,6 +121,8 @@ export default function useEvents() {
 
   return {
     eventLoading,
+    isErrorEvents,
+    errorEvent,
     events,
     bookings,
     bookingLoading,

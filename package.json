@@ -10,6 +10,7 @@
     "server": "json-server --watch db.json --delay=3000 --port 3001"
   },
   "dependencies": {
+    "lucide-vue-next": "^0.474.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {
